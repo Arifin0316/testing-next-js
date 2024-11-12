@@ -2,9 +2,10 @@ import { NextResponse } from 'next/server';
 import { NextRequest } from 'next/server';
 import withAuth from './midlewares/withAuth';
 
-export function Middleware(req: NextRequest) {
- const res = NextResponse.next();
- return res
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+export async function Middleware(req: NextRequest): Promise<NextResponse> {
+  const res = NextResponse.next();
+  return res;
 }
 
-export default withAuth(Middleware, ["/profile", "/admin"])
+export default withAuth(Middleware, ["/profile", "/admin"]);

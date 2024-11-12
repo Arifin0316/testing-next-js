@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { signIn, signInWithGoogle } from '@/lib/firebase/servis';
 import { compare } from 'bcrypt';
 import NextAuth, { NextAuthOptions } from 'next-auth';
@@ -49,14 +50,14 @@ const authOption: NextAuthOptions = {
 
       if (account?.provider === 'google') {
         // Perbaikan pengecekan provider
-        const data = {
+        const data: any = {
           name: user.name,
           email: user.email,
           image: user.image,
           type: 'google',
         };
 
-        await signInWithGoogle(data, (Result: {status: boolean, massage: string, data: any}) => {
+        await signInWithGoogle(data, (Result: {status?: boolean, massage?: string, data?: any}) => {
           if (Result.status) {
             token.email = Result.data.email;
             token.fullname = Result.data.name;

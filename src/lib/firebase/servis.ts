@@ -43,9 +43,11 @@ export async function signIn(userData: { email: string }) {
   }
 }
 
-export async function signInWithGoogle(userData: any, callback: any) {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export async function signInWithGoogle(userData: { name?: string; email: string; image?: string; type?: string, role?: string, fulname: string }, callback: { (Result: { status: boolean; massage: string; data: any; }): void; (arg0: { status: boolean; message: string; data?: any; }): void; }) {
   const q = query(collection(Firestore, 'user'), where('email', '==', userData.email));
   const snapshot = await getDocs(q);
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const data: any = snapshot.docs.map((doc) => ({
     id: doc.id,
     ...doc.data(),
@@ -96,6 +98,7 @@ export async function signUp(
 
     await addDoc(collection(Firestore, 'user'), userData);
     callback({ status: true, message: 'Sign up successful' });
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (error: any) {
     console.error('Error signing up:', error);
     callback({ status: false, message: error.message || 'Sign up failed. Please try again.' });

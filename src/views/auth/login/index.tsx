@@ -1,5 +1,6 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { signIn } from 'next-auth/react';
-import { redirect } from 'next/dist/server/api-utils';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useState, useRef } from 'react'; // Tambahkan useRef
@@ -16,11 +17,13 @@ function LoginViews() {
     setIsLoading(true);
     setError('');
 
+    const target = event.target as HTMLFormElement;
+
     try {
       const res = await signIn('credentials', {
         redirect: false,
-        email: event.target.email.value,
-        password: event.target.password.value,
+        email: target.email.value, // Gunakan target yang sudah di-cast
+        password: target.password.value, // Gunakan target yang sudah di-cast
         callbackUrl,
       });
       if (!res?.error) {
@@ -28,13 +31,14 @@ function LoginViews() {
         push(callbackUrl);
       } else {
         setIsLoading(false);
-        setError('email or passwor is incorec');
+        setError('Email or password is incorrect');
       }
     } catch (error: any) {
       setIsLoading(false);
-      setError('email or passwor is incorec');
+      setError('Email or password is incorrect');
     }
   };
+
   return (
     <div className="max-w-md mx-auto mt-10 p-8 border border-gray-200 rounded-lg shadow-lg bg-white">
       <h1 className="text-3xl font-bold mb-4 text-center">Login</h1>

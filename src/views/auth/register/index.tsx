@@ -13,10 +13,12 @@ function RegisterViews() {
     setIsLoading(true);
     setError("");
 
+    const form = event.currentTarget as HTMLFormElement;
+
     const formData = {
-      email: event.currentTarget.email.value.trim(),
-      name: event.currentTarget.name.value.trim(),
-      password: event.currentTarget.password.value,
+      email: (form.email as HTMLInputElement).value.trim(),
+      name: (form.name as unknown as HTMLInputElement).value.trim(),
+      password: (form.password as HTMLInputElement).value,
     };
 
     if (!formData.email || !formData.name || !formData.password) {
@@ -62,6 +64,7 @@ function RegisterViews() {
       setIsLoading(false);
     }
   };
+
   return (
     <div className="max-w-md mx-auto mt-10 p-8 border border-gray-200 rounded-lg shadow-lg bg-white">
       <h1 className="text-3xl font-bold mb-4 text-center">Register</h1>
