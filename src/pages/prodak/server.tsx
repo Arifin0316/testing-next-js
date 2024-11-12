@@ -16,7 +16,7 @@ export default ProdakPage;
 export async function getServerSideProps() {
   try {
     // Fetch API
-    const res = await fetch("http://localhost:3000/api/prodak");
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_ULR}/api/prodak`);
     if (!res.ok) {
       throw new Error("Failed to fetch data");
     }
